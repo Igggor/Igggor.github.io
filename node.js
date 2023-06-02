@@ -58,6 +58,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
     tg.sendData("Ваша форма отправлена");
     tg.MainButton.color = "#FFFFFF";
+    tg.close()
+    
 
 });
 
@@ -98,8 +100,9 @@ tg.MainButton.onClick(callback) = function(){
     document.getElementById("KS_date").addEventListener("change", function() {
         var input = this.value;
         data["KS_date"] = input; });   
-        
+        let s = ""
         tg.sendData("data"); 
+        tg.close()
     tg.MainButton.color = "#FFFFFF";
 
     }
