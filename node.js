@@ -1,7 +1,8 @@
 let tg = window.Telegram.WebApp;
 tg.expand()
-tg.MainButton.textColor = --tg-theme-button-text-color; //изменяем цвет текста кнопки
-tg.MainButton.color = --tg-theme-button-color; //изменяем цвет бэкграунда кнопки
+tg.MainButton.hide()
+tg.MainButton.textColor = "#FFFFFF"; //изменяем цвет текста кнопки
+tg.MainButton.color = "#2cab37"; //изменяем цвет бэкграунда кнопки
 tg.MainButton.setText("Отправить форму");
 tg.MainButton.show()
 
