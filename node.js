@@ -57,6 +57,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
 
     tg.sendData("Ваша форма отправлена");
+    tg.MainButton.color = "#FFFFFF";
+
 });
 
 tg.MainButton.onClick(callback) = function(){
@@ -98,6 +100,8 @@ tg.MainButton.onClick(callback) = function(){
         data["KS_date"] = input; });   
         
         tg.sendData("data"); 
+    tg.MainButton.color = "#FFFFFF";
+
     }
 
 
