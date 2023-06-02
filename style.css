@@ -33,6 +33,7 @@ button{
 input{
 	height: 20px;
 	width: 100%;
+	color: var(--tg-theme-text-color);
 	background-color: var(--tg-theme-bg-color);
 }
 select{
@@ -41,4 +42,10 @@ select{
 }
 .comment{
 	height: 100px;
+}
+textarea{
+	resize: none;
+	width: 100%;
+	height: auto;
+	min-height: 20px;
 }
