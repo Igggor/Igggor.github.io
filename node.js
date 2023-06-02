@@ -6,17 +6,7 @@ tg.MainButton.setText("Отправить форму");
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
-    let data = {
-        ["user"]: "",
-        ["worker"]: "",
-        [""]: "",
-        [""]: "",
-        [""]: "",
-        [""]: "",
-        [""]: "",
-        [""]: "",
-        [""]: ""
-    };
+    let data = {};
 
     var e = document.getElementById("Home_model");
     var text = e.options[e.selectedIndex].text;
