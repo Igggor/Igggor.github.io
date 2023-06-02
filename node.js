@@ -68,7 +68,10 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 });
 
 
-
+let but = document.getElementById("bubu");
+but.addEventListener("click", function(){
+    but.setText("ПРИВЕТ");
+});
 
 let drop1 = document.getElementById("Home_model");
 let drop2 = document.getElementById("mont_type");
