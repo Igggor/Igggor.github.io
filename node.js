@@ -48,11 +48,11 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     
 
 
-    var fs = require("fs");
-    fs.writeFile("data.json", data, (err) => {
-        if (err) throw err;
-        console.log("All right!");
-    });
+    // var fs = require("fs");
+    // fs.writeFile("data.json", data, (err) => {
+    //     if (err) throw err;
+    //     console.log("All right!");
+    // });
 
     tg.MainButton.color = "#FFFFFF";
     tg.sendData("Ваша форма отправлена");
