@@ -54,9 +54,9 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         console.log("All right!");
     });
 
-
-    tg.sendData("Ваша форма отправлена");
     tg.MainButton.color = "#FFFFFF";
+    tg.sendData("Ваша форма отправлена");
+    tg.MainButton.color = "#000000";
     tg.close()
     
 
