@@ -42,10 +42,14 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
     data["comm"] = document.getElementById("comm").value;
 
-    var KS_date = document.getElementById("KS_day").value + "-" + document.getElementById("KS_month").options[ document.getElementById("KS_month").selectedIndex].text + "-" + document.getElementById("KS_year").value;
+    e = document.getElementById("KS_month");
+    text = e.options[e.selectedIndex].text;
+    var KS_date = document.getElementById("KS_day").value + "-" + text + "-" + document.getElementById("KS_year").value;
     data["KS_date"] = KS_date;
 
-    var Drive_date = document.getElementById("Drive_day").value + "-" + document.getElementById("Drive_month").options[document.getElementById("Drive_month").selectedIndex].text + "-" + document.getElementById("Drive_year").value;
+    e = document.getElementById("Drive_month");
+    text = e.options[e.selectedIndex].text;
+    var Drive_date = document.getElementById("Drive_day").value + "-" + text + "-" + document.getElementById("Drive_year").value;
     data["drive_date"] = Drive_date;
     
     
