@@ -1,10 +1,10 @@
 let tg = window.Telegram.WebApp;
-tg.expand()
-tg.MainButton.hide()
+tg.expand();
+tg.MainButton.hide();
 tg.MainButton.textColor = "#FFFFFF"; //изменяем цвет текста кнопки
 tg.MainButton.color = "#2cab37"; //изменяем цвет бэкграунда кнопки
 tg.MainButton.setText("Отправить форму");
-tg.MainButton.show()
+tg.MainButton.show();
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
     let data = {};
