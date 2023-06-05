@@ -44,11 +44,13 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
     document.getElementById("drive_date").addEventListener("change", function() {
         var input = this.valueAsDate;
-        data["drive_date"] = input; });
+        document.getElementById("Drivep").innerText = input;
+        data["drive_date"] = document.getElementById("Drivep").textContent; });
     
     document.getElementById("KS_date").addEventListener("change", function() {
         var input = this.valueAsDate;
-        data["KS_date"] = input; });
+        document.getElementById("KSp").innerText = input;
+        data["KS_date"] = document.getElementById("KSp").textContent; });
     
     
     // tg.sendData(data);
