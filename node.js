@@ -51,8 +51,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         data["KS_date"] = input; });
     
     
-    // tg.sendData(data);
-    tg.sendData("S");
+    tg.sendData(data);
+//     tg.sendData("S");
     alert("finished");
     tg.close();
     
