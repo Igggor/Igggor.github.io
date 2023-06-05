@@ -12,36 +12,36 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     var e = document.getElementById("Home_model");
     var text = e.options[e.selectedIndex].text;
     data["Home_model"] = text
-    alert(data["Home_model"]);
+
     
     e = document.getElementById("mont_type");
     text = e.options[e.selectedIndex].text;
     data["mont_type"] = text;
-    alert( data["mont_type"]);
+
 
     e = document.getElementById("obr_type");
     text = e.options[e.selectedIndex].text;
     data["obr_type"] = text;
-    alert(data["obr_type"]);
+
     
-    tg.MainButton.color = "#FFFFFF";
+
     data["user"] = document.getElementById("user").value;
-    alert(data["user"]);
+
 
     data["worker"] = document.getElementById("worker").value;
-    alert(data["worker"]);
+
 
     data["mounter"] = document.getElementById("mounter").value;
-    alert( data["mounter"]);
+
 
     data["adress"] = document.getElementById("adress").value;
-    alert( data["adress"]);
+
 
     data["obr_type"] = document.getElementById("obr_type").value;
-    alert( data["obr_type"]);
+
 
     data["comm"] = document.getElementById("comm").value;
-    alert( data["comm"]);
+
     document.getElementById("drive_date").addEventListener("change", function() {
         var input = this.value;
         data["drive_date"] = input; });
@@ -62,12 +62,9 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     //     if (err) throw err;
     //     console.log("All right!");
     // });
-    alert("colors...");
     
-    tg.sendData("Ваша форма отправлена");
-    tg.MainButton.color = "#000000";
+    tg.sendData(data);
     tg.close();
-    alert("finished");
     
 
 });
