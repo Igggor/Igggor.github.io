@@ -42,6 +42,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         var input = this.value;
         data["drive_date"] = input; });
     
+    
+    tg.MainButton.color = "#FFFFFF";
     document.getElementById("KS_date").addEventListener("change", function() {
         var input = this.value;
         data["KS_date"] = input; });
@@ -54,10 +56,10 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     //     console.log("All right!");
     // });
 
-    tg.MainButton.color = "#FFFFFF";
+    
     tg.sendData("Ваша форма отправлена");
     tg.MainButton.color = "#000000";
-    tg.close()
+    tg.close();
     
 
 });
