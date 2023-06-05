@@ -45,25 +45,14 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     document.getElementById("drive_date").addEventListener("change", function() {
         var input = this.value;
         data["drive_date"] = input; });
-    alert( data["drive_date"]);
-    
-    
     
     document.getElementById("KS_date").addEventListener("change", function() {
         var input = this.value;
         data["KS_date"] = input; });
-    alert( data["KS_date"]);
     
-    
-
-
-    // var fs = require("fs");
-    // fs.writeFile("data.json", data, (err) => {
-    //     if (err) throw err;
-    //     console.log("All right!");
-    // });
     
     tg.sendData(data);
+    alert("finished");
     tg.close();
     
 
