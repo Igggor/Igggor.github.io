@@ -12,7 +12,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     var e = document.getElementById("Home_model");
     var text = e.options[e.selectedIndex].text;
     data["Home_model"] = text
-    alert( data["Home_model"]);
+    alert(data["Home_model"]);
     
     e = document.getElementById("mont_type");
     text = e.options[e.selectedIndex].text;
@@ -22,30 +22,24 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     e = document.getElementById("obr_type");
     text = e.options[e.selectedIndex].text;
     data["obr_type"] = text;
-    alert( data["obr_type"]);
+    alert(data["obr_type"]);
 
-    text = document.getElementById("user").val();
-    data["user"] = text;
-    alert( data["user"]);
+    data["user"] = document.getElementById("user").val();
+    alert(data["user"]);
 
-    text = document.getElementById("worker").val();
-    data["worker"] = text;
-    alert( data["worker"]);
+    data["worker"] = document.getElementById("worker").val();
+    alert(data["worker"]);
 
-    text = document.getElementById("mounter").val();
-    data["mounter"] = text;
+    data["mounter"] = document.getElementById("mounter").val();
     alert( data["mounter"]);
 
-    text = document.getElementById("adress").val();
-    data["adress"] = text;
+    data["adress"] = document.getElementById("adress").val();
     alert( data["adress"]);
 
-    text = document.getElementById("obr_type").val();
-    data["obr_type"] = text;
+    data["obr_type"] = document.getElementById("obr_type").val();
     alert( data["obr_type"]);
 
-    text = document.getElementById("comm").val();
-    data["comm"] = text;
+    data["comm"] = document.getElementById("comm").val();
     alert( data["comm"]);
     document.getElementById("drive_date").addEventListener("change", function() {
         var input = this.value;
