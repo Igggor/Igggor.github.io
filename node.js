@@ -42,15 +42,11 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
     data["comm"] = document.getElementById("comm").value;
 
-    document.getElementById("drive_date").addEventListener("change", function() {
-        var input = this.valueAsDate;
-        document.getElementById("Drivep").innerText = input;
-        data["drive_date"] = document.getElementById("Drivep").textContent; });
-    
-    document.getElementById("KS_date").addEventListener("change", function() {
-        var input = this.valueAsDate;
-        document.getElementById("KSp").innerText = input;
-        data["KS_date"] = document.getElementById("KSp").textContent; });
+    var KS_date = document.getElementById("KS_day").value + "-" + document.getElementById("KS_month").value + "-" + document.getElementById("KS_year").value;
+    data["KS_date"] = KS_date;
+
+    var Drive_date = document.getElementById("Drive_day").value + "-" + document.getElementById("Drive_month").value + "-" + document.getElementById("Drive_year").value;
+    data["drive_date"] = Drive_date;
     
     
     // tg.sendData(data);

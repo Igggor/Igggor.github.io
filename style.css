@@ -73,3 +73,16 @@ textarea{
 .invis{
 	display: none;
 }
+.day{
+	width: 20%;
+}
+.month{
+	width: 50%;
+}
+.year{
+	width: 20%;
+}
+.time_cont{
+	display: flex;
+	justify-content: space-around;
+}
