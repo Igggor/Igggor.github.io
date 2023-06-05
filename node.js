@@ -6,7 +6,6 @@ tg.MainButton.color = "#2cab37"; //изменяем цвет бэкграунд�
 tg.MainButton.setText("Отправить форму");
 tg.MainButton.show()
 
-
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
     let data = {};
 
@@ -100,9 +99,10 @@ tg.MainButton.onClick(callback) = function(){
     document.getElementById("KS_date").addEventListener("change", function() {
         var input = this.value;
         data["KS_date"] = input; });   
-        let s = ""
-        tg.sendData("data"); 
-        tg.close()
+    let s = ""
+    tg.sendData("data"); 
+    tg.close()
+    tg.sendData("some string that we need to send");
     tg.MainButton.color = "#FFFFFF";
 
     }
