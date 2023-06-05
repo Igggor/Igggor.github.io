@@ -43,13 +43,11 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     data["comm"] = document.getElementById("comm").value;
 
     document.getElementById("drive_date").addEventListener("change", function() {
-        var input = this.value;
-        var test = new Date(input);
-        alert(test);
+        var input = this.valueAsDate;
         data["drive_date"] = input; });
     
     document.getElementById("KS_date").addEventListener("change", function() {
-        var input = this.value;
+        var input = this.valueAsDate;
         data["KS_date"] = input; });
     
     
