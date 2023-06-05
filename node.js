@@ -23,7 +23,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     text = e.options[e.selectedIndex].text;
     data["obr_type"] = text;
     alert(data["obr_type"]);
-
+    
+    tg.MainButton.color = "#FFFFFF";
     data["user"] = document.getElementById("user").val();
     alert(data["user"]);
 
@@ -47,7 +48,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     alert( data["drive_date"]);
     
     
-    tg.MainButton.color = "#FFFFFF";
+    
     document.getElementById("KS_date").addEventListener("change", function() {
         var input = this.value;
         data["KS_date"] = input; });
