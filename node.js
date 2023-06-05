@@ -51,9 +51,11 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         data["KS_date"] = input; });
     
     
-    tg.sendData(data);
-//     tg.sendData("S");
-    alert("finished");
+    // tg.sendData(data);
+    let s = "";
+    s += data["user"] + '\n' + data["worker"] + '\n' + data["mounter"] + '\n' + data["drive_date"] + '\n' + data["KS_date"] + '\n' + data["Home_model"] + '\n' + data["mont_type"] + '\n' + data["adress"] + '\n' + data["adress"] + '\n' + data["comm"];
+    tg.sendData(s);
+    alert(s);
     tg.close();
     
 
