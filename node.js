@@ -37,7 +37,9 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     data["adress"] = document.getElementById("adress").value;
 
 
-    data["obr_type"] = document.getElementById("obr_type").value;
+    e = document.getElementById("obr_type");
+    text = e.options[e.selectedIndex].text;
+    data["obr_type"] = text;
 
 
     data["comm"] = document.getElementById("comm").value;
