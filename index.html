@@ -1,135 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>tg:site</title>
-    
-</head>
-<body>
-    <main>
-        <article class="cont">
-            <p class="info">ФИО клиента</p>
-            <input type="text" id="user" class="inp">
-        </article>
-
-        <article class="cont">
-            <p class="info">ФИО выездного</p>
-            <input type="text" id="worker" class="inp">
-        </article>
-
-        <article class="cont">
-            <p class="info">ФИО монтажника</p>
-            <input type="text" id="mounter" class="inp">
-        </article>
-
-        <article class="cont">
-            <p class="info">Дата выезда</p> <!--Сделать дату-->
-            <!-- <input type="date" id="drive_date" class="inp day"> -->
-            <div class="time_cont">
-                <input type="number" value="1" class="day" id="Drive_day" min="1" max="31">
-                <select name="month" class="month" id="Drive_month">
-                    <option value="">Января</option>
-                    <option value="">Февраля</option>
-                    <option value="">Марта</option>
-                    <option value="">Апреля</option>
-                    <option value="">Мая</option>
-                    <option value="">Июня</option>
-                    <option value="">Июля</option>
-                    <option value="">Августа</option>
-                    <option value="">Сентября</option>
-                    <option value="">Октября</option>
-                    <option value="">Ноября</option>
-                    <option value="">Декабря</option>
-                </select>
-                <input type="number" value="2023" id="Drive_year" class="year" min="2000" max="2054">
-            </div>
-        </article>
-
-        <article class="cont">
-            <p class="info">Дата подписания КС</p>  <!--Сделать дату-->
-            <!-- <input type="date" id="KS_date" class="inp day"> -->
-            <div class="time_cont">
-                <input type="number" value="1" class="day" id="KS_day" min="1" max="31">
-                <select name="month" class="month" id="KS_month">
-                    <option value="">Января</option>
-                    <option value="">Февраля</option>
-                    <option value="">Марта</option>
-                    <option value="">Апреля</option>
-                    <option value="">Мая</option>
-                    <option value="">Июня</option>
-                    <option value="">Июля</option>
-                    <option value="">Августа</option>
-                    <option value="">Сентября</option>
-                    <option value="">Октября</option>
-                    <option value="">Ноября</option>
-                    <option value="">Декабря</option>
-                </select>
-                <input type="number" value="2023" id="KS_year" class="year" min="2000" max="2054">
-            </div>
-        </article>
-
-        <article class="cont">
-            <p class="info">Модель дома</p> <!--Выпадающий список-->
-            <!-- <input type="text" class="inp"> -->
-            <select name="Модель дома" id="Home_model">
-                <option value="">-Выберете модель дома-</option> <!--value для кратких кодов (типо не pineaple, а pi_Ap)-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-                <option value="">модель N</option> <!-- Заполнение будет через JS-->
-            </select>
-        </article>
-
-        <article class="cont">
-            <p class="info">Тип монтажа</p>  <!--Выпадающий список-->
-            <!-- <input type="text" class="inp"> -->
-            <select name="Тип монтажа" id="mont_type">
-                <option value="">-Выберете тип монтажа-</option> <!--value для кратких кодов (типо не pineaple, а pi_Ap)-->
-                <option value="">Скрытый</option> <!-- Заполнение будет через JS-->
-                <option value="">Открытый</option> <!-- Заполнение будет через JS-->
-                <option value="">Наружка</option> <!-- Заполнение будет через JS-->
-            </select>
-        </article>
-
-        <article class="cont">
-            <p class="info">Адрес объекта</p>
-            <input type="text" id="adress" class="inp">
-        </article>
-
-        <article class="cont">
-            <p class="info">Тип обращения</p> <!--Выпадающий список-->
-            <!-- <input type="text" class="inp"> -->
-            <select name="Тип обращения" class="type" id="obr_type">
-                <option value="">-Выберете тип обращения-</option> <!--value для кратких кодов (типо не pineaple, а pi_Ap)-->
-                <option value="">ККР</option> <!-- Заполнение будет через JS-->
-                <option value="">Диспетчер</option>
-                <option value="">Сервисная служба</option> <!-- Заполнение будет через JS-->
-            </select>
-        </article>
-
-        <article class="cont">
-            <p class="info">Комментарий</p>
-            <textarea name="comm" id="comm" cols="30" rows="10"></textarea>
-        </article>
-        <!-- <button>Отправить форму в сообщении</button> -->
-        <p class="invis" id="KSp"></p>
-        <p class="invis" id="Drivep"></p>
-    </main>
+<html ng-app="custom-webapp-ui" lang="en">
+  <head>
+    <!-- Load the Telegram Library -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="node.js"></script>
-    
-</body>
+    <!--Load the AngularJS Library-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+  <body ng-controller="CustomUIController">
+    <form id="form">
+        <label for="full_name">ФИО заказчика:</label>
+        <input type="text" id="full_name" name="full_name" required>
+
+        <label for="executor_name">Имя выполнившего работу:</label>
+        <input type="text" id="executor_name" name="executor_name" required>
+
+        <label for="address">Адрес выполнения:</label>
+        <input type="text" id="address" name="address" required>
+
+        <label for="date">Дата выполнения:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="media">Медиа файлы:</label>
+        <input type="file" id="media" name="media" multiple accept="image/*,video/*" required>
+
+        <button type="button" onclick="sendData()">Отправить</button>
+    </form>
+
+    <script>
+        function sendData() {
+            const full_name = document.getElementById('full_name').value;
+            const executor_name = document.getElementById('executor_name').value;
+            const address = document.getElementById('address').value;
+            const date = document.getElementById('date').value;
+            const media_files = document.getElementById('media').files;
+
+            // Convert media files to base64
+            const promises = [];
+            for (let i = 0; i < media_files.length; i++) {
+                promises.push(readFileAsDataURL(media_files[i]));
+            }
+
+            Promise.all(promises).then(base64Files => {
+                const data = {
+                    full_name: full_name,
+                    executor_name: executor_name,
+                    address: address,
+                    date: date,
+                    media: base64Files
+                };
+                Telegram.WebApp.sendData(JSON.stringify(data));
+            }).catch(error => {
+                console.error('Error converting files to base64:', error);
+            });
+        }
+
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
+  </body>
+    <script></script>
 </html>
