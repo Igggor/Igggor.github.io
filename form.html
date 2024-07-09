@@ -1,37 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+<html ng-app="custom-webapp-ui" lang="en">
+  <head>
+    <!-- Load the Telegram Library -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body>
-    <form id="form">
-        <label for="full_name">ФИО заказчика:</label>
-        <input type="text" id="full_name" name="full_name" required><br>
-        <label for="executor_name">Имя выполнившего работу:</label>
-        <input type="text" id="executor_name" name="executor_name" required><br>
-        <label for="address">Адрес выполнения:</label>
-        <input type="text" id="address" name="address" required><br>
-        <label for="date">Дата выполнения:</label>
-        <input type="date" id="date" name="date" required><br>
-        <label for="media">Медиа файлы (URL через запятую):</label>
-        <input type="text" id="media" name="media" required><br>
-        <button type="button" onclick="sendData()">Отправить</button>
-    </form>
-
+    <!--Load the AngularJS Library-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
     <script>
-        function sendData() {
-            const data = {
-                full_name: document.getElementById('full_name').value,
-                executor_name: document.getElementById('executor_name').value,
-                address: document.getElementById('address').value,
-                date: document.getElementById('date').value,
-                media: document.getElementById('media').value.split(',')
-            };
-            Telegram.WebApp.sendData(JSON.stringify(data));
-        }
+        //initialize the AngularJS stuff...
+angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope) {
+  //init our slider values that we will display
+  $scope.foods = [
+          { name: "fruits", value: 5 },
+          { name: "vegetables", value: 5 },
+          { name: "meat", value: 5 },
+          { name: "dairy", value: 5 }
+      ];
+  //initialize the "save" button
+  const mainButton = window.Telegram.WebApp.MainButton;
+  mainButton.text = "Save Preferences";
+  mainButton.enable();
+  mainButton.show();
+  // and make it send the "foods" object (as JSON string) back to the backend
+  mainButton.onClick(function(){
+    window.Telegram.WebApp.sendData(JSON.stringify($scope.foods));
+  })
+});
     </script>
-</body>
+  </head>
+  <body ng-controller="CustomUIController">
+    <div ng-repeat="food in foods">
+      <div style="width: 100px; display: inline-block">{{food.name}} : {{food.value}}</div>
+      <input style="display: inline-block" type="range" min="1" max="10" ng-model="food.value" value="{{food.value}}">
+    </div>
+  </body>
+    <script></script>
 </html>
