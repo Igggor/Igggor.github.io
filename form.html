@@ -4,38 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <form id="orderForm">
-        <label for="lastName">Фамилия:</label>
-        <input type="text" id="lastName" name="lastName" required><br>
-        <label for="firstName">Имя:</label>
-        <input type="text" id="firstName" name="firstName" required><br>
-        <label for="middleName">Отчество:</label>
-        <input type="text" id="middleName" name="middleName"><br>
-        <label for="workerName">Имя выполнившего работу:</label>
-        <input type="text" id="workerName" name="workerName" required><br>
+    <form id="form">
+        <label for="full_name">ФИО заказчика:</label>
+        <input type="text" id="full_name" name="full_name" required><br>
+        <label for="executor_name">Имя выполнившего работу:</label>
+        <input type="text" id="executor_name" name="executor_name" required><br>
         <label for="address">Адрес выполнения:</label>
         <input type="text" id="address" name="address" required><br>
         <label for="date">Дата выполнения:</label>
         <input type="date" id="date" name="date" required><br>
-        <label for="files">Загрузите фото и видео:</label>
-        <input type="file" id="files" name="files" multiple><br><br>
-        <button type="submit">Отправить</button>
+        <label for="media">Медиа файлы (URL через запятую):</label>
+        <input type="text" id="media" name="media" required><br>
+        <button type="button" onclick="sendData()">Отправить</button>
     </form>
 
     <script>
-        const form = document.getElementById('orderForm');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            const response = await fetch('/submit', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-            alert(result.message);
-        });
+        function sendData() {
+            const data = {
+                full_name: document.getElementById('full_name').value,
+                executor_name: document.getElementById('executor_name').value,
+                address: document.getElementById('address').value,
+                date: document.getElementById('date').value,
+                media: document.getElementById('media').value.split(',')
+            };
+            Telegram.WebApp.sendData(JSON.stringify(data));
+        }
     </script>
 </body>
 </html>
