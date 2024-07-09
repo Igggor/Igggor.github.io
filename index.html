@@ -52,6 +52,24 @@
                     mediaFiles: $scope.mediaFiles
                 };
                 window.Telegram.WebApp.sendData(JSON.stringify(data));
+                let files = document.getElementById('media-files').files;
+                let fileData = [];
+
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
+                    let base64 = await toBase64(file);
+                    fileData.push({
+                        name: file.name,
+                        type: file.type,
+                        data: base64
+                    });
+                }
+
+                let data = {
+                    fields: $scope.lines,
+                    files: fileData
+                };
+
             });
 
             function applyTheme() {
