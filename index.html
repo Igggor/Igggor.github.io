@@ -70,7 +70,7 @@
             const files = evt.target.files;
             const scope = angular.element(document.querySelector('[ng-controller="CustomUIController"]')).scope();
             for (let i = 0; i < files.length; i++) {
-                scope.mediaFiles.push(files[i].name);
+                scope.mediaFiles.push(files[i]);
             }
             scope.$apply();
         }
