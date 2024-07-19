@@ -1,9 +1,9 @@
 angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope, $http) {
     $scope.lines = [
-        { name: "Фамилия заказчика", value: "", showSuggestions: false, suggestions: [] },
+        { name: "Фамилия заказчика", value: "", showSuggestions: false, suggestions: [], selectedUserId: null },
         { name: "Имя и Отчество заказчика", value: "" },
         { name: "Адрес выполнения", value: "" },
-        { name: "Дата в формате ДД.ММ.ГГГГ", value: "" }
+        { name: "Дата в формате ДД.ММ.ГГГ", value: "" }
     ];
     $scope.mediaFiles = [];
 
@@ -16,7 +16,8 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
         const filesData = await Promise.all($scope.mediaFiles.map(file => toBase64(file)));
         const data = {
             lines: $scope.lines,
-            mediaFiles: filesData
+            mediaFiles: filesData,
+            selectedUserId: $scope.lines[0].selectedUserId  // Передаем ID пользователя
         };
         console.log("Sending data:", JSON.stringify(data));  // Debug output
         window.Telegram.WebApp.sendData(JSON.stringify(data));
@@ -43,8 +44,9 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
     $scope.selectSuggestion = function(line, suggestion) {
         $scope.lines[0].value = suggestion.LAST_NAME;
         $scope.lines[1].value = `${suggestion.NAME} ${suggestion.SECOND_NAME}`;
-        $scope.lines[2].value = suggestion.ADDRESS || ""; // Assuming you have an ADDRESS field
+        $scope.lines[0].selectedUserId = suggestion.ID;  // Сохраняем ID пользователя
         line.showSuggestions = false;
+        console.log("Selected suggestion:", suggestion);  // Debug output
     };
 
     function applyTheme() {
@@ -81,7 +83,7 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                select: ['NAME', 'LAST_NAME', 'SECOND_NAME', 'ADDRESS']
+                select: ['ID', 'NAME', 'LAST_NAME', 'SECOND_NAME']
             })
         });
 
@@ -93,6 +95,8 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
         if (!data.result) {
             throw new Error('Нет данных от API Битрикса');
         }
+
+        console.log('Data from Bitrix:', data.result);  // Debug output
 
         const regex = new RegExp(substring, 'i');
         return data.result.filter(user => {
