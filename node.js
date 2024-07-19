@@ -1,66 +1,105 @@
-let tg = window.Telegram.WebApp;
-tg.expand();
-tg.MainButton.hide();
-tg.MainButton.textColor = "#FFFFFF"; //изменяем цвет текста кнопки
-tg.MainButton.color = "#2cab37"; //изменяем цвет бэкграунда кнопки
-tg.MainButton.setText("Отправить форму");
-tg.MainButton.show();
+angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope, $http) {
+    $scope.lines = [
+        { name: "Фамилия заказчика", value: "", showSuggestions: false, suggestions: [] },
+        { name: "Имя и Отчество заказчика", value: "" },
+        { name: "Адрес выполнения", value: "" },
+        { name: "Дата в формате ДД.ММ.ГГГГ", value: "" }
+    ];
+    $scope.mediaFiles = [];
 
-Telegram.WebApp.onEvent("mainButtonClicked", function(){
-    let data = {};
+    const mainButton = window.Telegram.WebApp.MainButton;
+    mainButton.text = "Save Preferences";
+    mainButton.enable();
+    mainButton.show();
 
-    var e = document.getElementById("Home_model");
-    var text = e.options[e.selectedIndex].text;
-    data["Home_model"] = text
+    mainButton.onClick(async function(){
+        const filesData = await Promise.all($scope.mediaFiles.map(file => toBase64(file)));
+        const data = {
+            lines: $scope.lines,
+            mediaFiles: filesData
+        };
+        console.log("Sending data:", JSON.stringify(data));  // Debug output
+        window.Telegram.WebApp.sendData(JSON.stringify(data));
+    });
 
-    
-    e = document.getElementById("mont_type");
-    text = e.options[e.selectedIndex].text;
-    data["mont_type"] = text;
+    $scope.onInputChange = function(line) {
+        if (line.name === "Фамилия заказчика" && line.value.length > 2) {
+            searchUsers(line.value).then(users => {
+                line.suggestions = users;
+                line.showSuggestions = true;
+                $scope.$apply();
+            });
+        } else {
+            line.showSuggestions = false;
+        }
+    };
 
+    $scope.onInputFocus = function(line) {
+        if (line.suggestions.length > 0) {
+            line.showSuggestions = true;
+        }
+    };
 
-    e = document.getElementById("obr_type");
-    text = e.options[e.selectedIndex].text;
-    data["obr_type"] = text;
+    $scope.selectSuggestion = function(line, suggestion) {
+        $scope.lines[0].value = suggestion.LAST_NAME;
+        $scope.lines[1].value = `${suggestion.NAME} ${suggestion.SECOND_NAME}`;
+        $scope.lines[2].value = suggestion.ADDRESS || ""; // Assuming you have an ADDRESS field
+        line.showSuggestions = false;
+    };
 
-    
+    function applyTheme() {
+        const theme = window.Telegram.WebApp.colorScheme;
+        if (theme === 'dark') {
+            document.body.classList.add('dark-theme');
+        } else {
+            document.body.classList.remove('dark-theme');
+        }
+    }
 
-    data["user"] = document.getElementById("user").value;
+    applyTheme();
+    window.Telegram.WebApp.onEvent('themeChanged', applyTheme);
 
+    function toBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve({
+                name: file.name,
+                type: file.type,
+                data: reader.result
+            });
+            reader.onerror = error => reject(error);
+        });
+    }
 
-    data["worker"] = document.getElementById("worker").value;
+    async function searchUsers(substring) {
+        const webhookUrl = 'https://stv-terem.bitrix24.ru/rest/82/54ipf3xuj9n4sr61/crm.contact.list.json';
 
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                select: ['NAME', 'LAST_NAME', 'SECOND_NAME', 'ADDRESS']
+            })
+        });
 
-    data["mounter"] = document.getElementById("mounter").value;
+        if (!response.ok) {
+            throw new Error('Ошибка при запросе к API Битрикса');
+        }
 
+        const data = await response.json();
+        if (!data.result) {
+            throw new Error('Нет данных от API Битрикса');
+        }
 
-    data["adress"] = document.getElementById("adress").value;
-
-
-    e = document.getElementById("obr_type");
-    text = e.options[e.selectedIndex].text;
-    data["obr_type"] = text;
-
-
-    data["comm"] = document.getElementById("comm").value;
-
-    e = document.getElementById("KS_month");
-    text = e.options[e.selectedIndex].text;
-    var KS_date = document.getElementById("KS_day").value + "-" + text + "-" + document.getElementById("KS_year").value;
-    data["KS_date"] = KS_date;
-
-    e = document.getElementById("Drive_month");
-    text = e.options[e.selectedIndex].text;
-    var Drive_date = document.getElementById("Drive_day").value + "-" + text + "-" + document.getElementById("Drive_year").value;
-    data["drive_date"] = Drive_date;
-    
-    
-    // tg.sendData(data);
-    let s = "";
-    s += data["user"] + '\n' + data["worker"] + '\n' + data["mounter"] + '\n' + data["drive_date"] + '\n' + data["KS_date"] + '\n' + data["Home_model"] + '\n' + data["mont_type"] + '\n' + data["adress"] + '\n' + data["obr_type"] + '\n' + data["comm"];
-    tg.sendData(s);
-    // alert(s);
-    tg.close();
-    
-
+        const regex = new RegExp(substring, 'i');
+        return data.result.filter(user => {
+            const firstName = user.NAME || '';
+            const lastName = user.LAST_NAME || '';
+            const secondName = user.SECOND_NAME || '';
+            return regex.test(firstName) || regex.test(lastName) || regex.test(secondName);
+        });
+    }
 });
