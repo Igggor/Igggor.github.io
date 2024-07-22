@@ -9,7 +9,7 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
     $scope.mediaFiles = [];
 
     const mainButton = window.Telegram.WebApp.MainButton;
-    mainButton.text = "Save Preferences";
+    mainButton.text = "Отправить отчет";
     mainButton.enable();
     mainButton.show();
 
