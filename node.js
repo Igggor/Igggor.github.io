@@ -1,49 +1,3 @@
-async function searchUsers(substring) {
-    const webhookUrl = 'https://stv-terem.bitrix24.ru/rest/82/54ipf3xuj9n4sr61/crm.contact.list.json';
-
-    async function fetchUsers(filter) {
-        const response = await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                filter,
-                select: ['ID', 'NAME', 'LAST_NAME', 'SECOND_NAME']
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Ошибка при запросе к API Битрикса');
-        }
-
-        const data = await response.json();
-        if (!data.result) {
-            throw new Error('Нет данных от API Битрикса');
-        }
-
-        return data.result;
-    }
-
-    const [lastNameResults, nameResults, secondNameResults] = await Promise.all([
-        fetchUsers({ '%LAST_NAME': substring }),
-        fetchUsers({ '%NAME': substring }),
-        fetchUsers({ '%SECOND_NAME': substring })
-    ]);
-
-    // Объединение результатов и удаление дубликатов
-    const combinedResults = [...lastNameResults, ...nameResults, ...secondNameResults];
-    const uniqueResults = combinedResults.filter((user, index, self) =>
-        index === self.findIndex((t) => (
-            t.ID === user.ID
-        ))
-    );
-
-    console.log('Combined unique results from Bitrix:', uniqueResults);  // Debug output
-
-    return uniqueResults;
-}
-
 // AngularJS controller code
 angular.module("custom-webapp-ui", []).controller('CustomUIController', function CustomUIController($scope, $http) {
     $scope.lines = [
@@ -121,3 +75,50 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
         });
     }
 });
+
+
+async function searchUsers(substring) {
+    const webhookUrl = 'https://stv-terem.bitrix24.ru/rest/82/54ipf3xuj9n4sr61/crm.contact.list.json';
+
+    async function fetchUsers(filter) {
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                filter,
+                select: ['ID', 'NAME', 'LAST_NAME', 'SECOND_NAME']
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Ошибка при запросе к API Битрикса');
+        }
+
+        const data = await response.json();
+        if (!data.result) {
+            throw new Error('Нет данных от API Битрикса');
+        }
+
+        return data.result;
+    }
+
+    const [lastNameResults, nameResults, secondNameResults] = await Promise.all([
+        fetchUsers({ '%LAST_NAME': substring }),
+        fetchUsers({ '%NAME': substring }),
+        fetchUsers({ '%SECOND_NAME': substring })
+    ]);
+
+    // Объединение результатов и удаление дубликатов
+    const combinedResults = [...lastNameResults, ...nameResults, ...secondNameResults];
+    const uniqueResults = combinedResults.filter((user, index, self) =>
+        index === self.findIndex((t) => (
+            t.ID === user.ID
+        ))
+    );
+
+    console.log('Combined unique results from Bitrix:', uniqueResults);  // Debug output
+
+    return uniqueResults;
+}
