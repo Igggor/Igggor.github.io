@@ -15,13 +15,24 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
 
     mainButton.onClick(async function(){
         const filesData = await Promise.all($scope.mediaFiles.map(file => toBase64(file)));
-        const data = {
-            lines: $scope.lines,
+
+        // Фильтрация заполненных полей
+        const filledLines = $scope.lines.filter(line => line.value.trim() !== "").map(line => ({
+            name: line.name,
+            value: line.value
+        }));
+
+        const out = {
+            lines: filledLines,
             mediaFiles: filesData,
             selectedUserId: $scope.lines[0].selectedUserId  // Передаем ID пользователя
         };
-        console.log("Sending data:", JSON.stringify(data));  // Debug output
-        window.Telegram.WebApp.sendData(JSON.stringify(data));
+        console.log("Sending data:", JSON.stringify(out));  // Debug output
+        try {
+            window.Telegram.WebApp.sendData(JSON.stringify(out));
+        } catch (error) {
+            console.error("Error sending data:", error);  // Debug output
+        }
     });
 
     $scope.onInputChange = function(line) {
