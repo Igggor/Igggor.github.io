@@ -89,7 +89,7 @@ angular.module("custom-webapp-ui", []).controller('CustomUIController', function
 
 
 async function searchUsers(substring) {
-    const webhookUrl = 'bitrix.igreeda.keenetic.pro/get_data';
+    const webhookUrl = 'https://bitrix.igreeda.keenetic.pro/get_data';
 
     async function fetchUsers(filter) {
         const response = await fetch(webhookUrl, {
